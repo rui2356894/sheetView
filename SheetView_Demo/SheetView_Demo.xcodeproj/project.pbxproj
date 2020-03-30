@@ -15,6 +15,9 @@
 		C03D834D242DC88500C199B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03D834B242DC88500C199B9 /* LaunchScreen.storyboard */; };
 		C03D8358242DC88500C199B9 /* SheetView_DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D8357242DC88500C199B9 /* SheetView_DemoTests.swift */; };
 		C03D8363242DC88500C199B9 /* SheetView_DemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D8362242DC88500C199B9 /* SheetView_DemoUITests.swift */; };
+		C03D8374242DC8BC00C199B9 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D8371242DC8BC00C199B9 /* SheetView.swift */; };
+		C03D8375242DC8BC00C199B9 /* SheetViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D8372242DC8BC00C199B9 /* SheetViewLayout.swift */; };
+		C03D8376242DC8BC00C199B9 /* TouchEventCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D8373242DC8BC00C199B9 /* TouchEventCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		C03D835E242DC88500C199B9 /* SheetView_DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SheetView_DemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03D8362242DC88500C199B9 /* SheetView_DemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView_DemoUITests.swift; sourceTree = "<group>"; };
 		C03D8364242DC88500C199B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C03D8371242DC8BC00C199B9 /* SheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		C03D8372242DC8BC00C199B9 /* SheetViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetViewLayout.swift; sourceTree = "<group>"; };
+		C03D8373242DC8BC00C199B9 /* TouchEventCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchEventCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,7 @@
 		C03D833F242DC88200C199B9 /* SheetView_Demo */ = {
 			isa = PBXGroup;
 			children = (
+				C03D8370242DC8BC00C199B9 /* SheetView */,
 				C03D8340242DC88200C199B9 /* AppDelegate.swift */,
 				C03D8342242DC88200C199B9 /* SceneDelegate.swift */,
 				C03D8344242DC88200C199B9 /* ViewController.swift */,
@@ -126,6 +133,16 @@
 				C03D8364242DC88500C199B9 /* Info.plist */,
 			);
 			path = SheetView_DemoUITests;
+			sourceTree = "<group>";
+		};
+		C03D8370242DC8BC00C199B9 /* SheetView */ = {
+			isa = PBXGroup;
+			children = (
+				C03D8371242DC8BC00C199B9 /* SheetView.swift */,
+				C03D8372242DC8BC00C199B9 /* SheetViewLayout.swift */,
+				C03D8373242DC8BC00C199B9 /* TouchEventCollectionView.swift */,
+			);
+			path = SheetView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +276,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C03D8375242DC8BC00C199B9 /* SheetViewLayout.swift in Sources */,
 				C03D8345242DC88200C199B9 /* ViewController.swift in Sources */,
 				C03D8341242DC88200C199B9 /* AppDelegate.swift in Sources */,
+				C03D8374242DC8BC00C199B9 /* SheetView.swift in Sources */,
 				C03D8343242DC88200C199B9 /* SceneDelegate.swift in Sources */,
+				C03D8376242DC8BC00C199B9 /* TouchEventCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
