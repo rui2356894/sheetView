@@ -305,3 +305,143 @@ extension SheetViewLayout {
         }
     }
 }
+
+//MARK: - 触碰事件
+extension SheetViewLayout {
+    
+    /// 点击某个item
+    /// - Parameters:
+    ///   - indexPath: 索引
+    ///   - collectionView: 控件
+    public func selectItem(indexPath:IndexPath,collectionView:UICollectionView) {
+        if self.isSingleSelect {
+            if self.supplementAttributes.count == 1{
+                if self.supplementAttributes[0].indexPath.section == indexPath.section{
+                    /// 点击收回逻辑
+                    self.deleteSupplementItem(indexPath: indexPath)
+                    collectionView.performBatchUpdates({
+                        collectionView.deleteItems(at: [IndexPath(item: self.itemsWidth.count, section:indexPath.section)])
+                    }, completion: nil)
+                    return
+                }else{
+                    /// 点击展开 同时收回原来展开
+                    let deleteIndexPath = IndexPath(item: self.itemsWidth.count, section: self.supplementAttributes[0].indexPath.section)
+                    
+                    collectionView.performBatchUpdates({
+                        self.deleteSupplementItem(indexPath:deleteIndexPath)
+                        self.addSupplementItem(indexPath: indexPath)
+                        collectionView.insertItems(at: [IndexPath(item: self.itemsWidth.count, section:indexPath.section)])
+                        collectionView.deleteItems(at: [deleteIndexPath])
+                    }, completion: nil)
+                    return
+                }
+            }
+            // 无收回 只展开
+            collectionView.performBatchUpdates({
+                self.addSupplementItem(indexPath: indexPath)
+                collectionView.insertItems(at: [IndexPath(item: self.itemsWidth.count, section:indexPath.section)])
+            }, completion: nil)
+            return
+        }
+        
+        
+        // 处理多个附属视图展开
+        let isdeleteArr = self.supplementAttributes.filter { (supplmentItem) -> Bool in
+            return supplmentItem.indexPath.section == indexPath.section
+        }
+        if isdeleteArr.count > 0{
+            /// 收回逻辑
+            self.deleteSupplementItem(indexPath: indexPath)
+            collectionView.performBatchUpdates({
+                collectionView.deleteItems(at: [IndexPath(item: self.itemsWidth.count, section:indexPath.section)])
+            }, completion: nil)
+            return
+        }
+        // 展开逻辑
+        self.addSupplementItem(indexPath: indexPath)
+        collectionView.performBatchUpdates({
+            collectionView.insertItems(at: [IndexPath(item: self.itemsWidth.count, section:indexPath.section)])
+        }, completion: nil)
+        return
+    }
+    
+    
+    /// 删除附属视图
+    /// - Parameter indexPath: 索引
+    public func deleteSupplementItem(indexPath:IndexPath){
+        guard let sheet = self.sheetView else { return }
+        self.sheetView?.delegate?.sheetView(self.sheetView!, isAddSupplement: false, at:IndexPath(item:0, section: indexPath.section - 1))
+        if self.isSingleSelect {
+            self.supplementAttributes.removeAll()
+        }else{
+            var deleteIndex = -1
+            for index in 0..<self.supplementAttributes.count {
+                if self.supplementAttributes[index].indexPath.section == indexPath.section {
+                    /// 获取删除的索引
+                    deleteIndex = index
+                }
+                if self.supplementAttributes[index].indexPath.section > indexPath.section {
+                    /// 获取所有在添加附属视图下面的section附属视图
+                    self.allItemsAttributes[self.supplementAttributes[index].indexPath.section][self.itemsWidth.count].frame.origin.y -= sheet.supplementViewHeight
+                }
+            }
+            if deleteIndex != -1 {
+                self.supplementAttributes.remove(at: deleteIndex)
+            }
+        }
+        self.deleteSupplementAttributes = self.supplementAttributes.filter({ (s) -> Bool in
+            return s.indexPath.section == indexPath.section
+        })
+        
+    }
+    
+    
+    
+    /// 添加附属视图
+    /// - Parameter indexPath: 索引
+    public func addSupplementItem(indexPath:IndexPath){
+        guard let collectionView = collectionView,let sheet = self.sheetView else { return }
+        self.sheetView?.delegate?.sheetView(self.sheetView!, isAddSupplement: true, at: IndexPath(item:0, section: indexPath.section - 1))
+        let footIndexPath = IndexPath(item: self.itemsWidth.count, section:indexPath.section)
+        let footAttributes = UICollectionViewLayoutAttributes(forCellWith: footIndexPath)
+        footAttributes.zIndex = 1000
+        if self.isSingleSelect {
+            self.supplementAttributes.removeAll()
+            footAttributes.frame = CGRect(x: collectionView.contentOffset.x, y:(CGFloat(indexPath.section) * sheet.itemHeight)+sheet.headerViewHeight, width:collectionView.frame.size.width, height: sheet.supplementViewHeight)
+        }else{
+            /// 获取所有在添加附属视图下面的section附属视图
+            let supplementItems = self.supplementAttributes.filter { (supplmentItem) -> Bool in
+                let istrue = supplmentItem.indexPath.section > indexPath.section
+                if istrue {
+                    self.allItemsAttributes[supplmentItem.indexPath.section][self.itemsWidth.count].frame.origin.y += sheet.supplementViewHeight
+                }
+                return istrue
+            }
+            footAttributes.frame = CGRect(x: collectionView.contentOffset.x, y:sheet.headerViewHeight + (CGFloat(indexPath.section) * sheet.itemHeight) + (CGFloat(self.supplementAttributes.count - supplementItems.count) * sheet.supplementViewHeight), width:collectionView.frame.size.width, height: sheet.supplementViewHeight)
+        }
+        self.supplementAttributes.append(footAttributes)
+    }
+    
+    /// 当刷新某个控件 保持
+    /// - Parameter indexPath: 索引
+    public func refreshAddSupplementItem(indexPath:IndexPath) {
+        guard let collectionView = collectionView,let sheet = self.sheetView else { return }
+        let footIndexPath = IndexPath(item: self.itemsWidth.count, section:indexPath.section)
+        let footAttributes = UICollectionViewLayoutAttributes(forCellWith: footIndexPath)
+        footAttributes.zIndex = 1000
+        if self.isSingleSelect {
+            self.supplementAttributes.removeAll()
+            footAttributes.frame = CGRect(x: collectionView.contentOffset.x, y:(CGFloat(indexPath.section) * sheet.itemHeight)+sheet.headerViewHeight, width:collectionView.frame.size.width, height: sheet.supplementViewHeight)
+        }else{
+            let supplementItems = self.supplementAttributes.filter { (supplmentItem) -> Bool in
+                let istrue = supplmentItem.indexPath.section > indexPath.section
+                if istrue {
+                    self.allItemsAttributes[supplmentItem.indexPath.section][self.itemsWidth.count].frame.origin.y += sheet.supplementViewHeight
+                }
+                return istrue
+            }
+            footAttributes.frame = CGRect(x: collectionView.contentOffset.x, y:sheet.headerViewHeight + (CGFloat(indexPath.section) * sheet.itemHeight) + (CGFloat(self.supplementAttributes.count - supplementItems.count) * sheet.supplementViewHeight), width:collectionView.frame.size.width, height: sheet.supplementViewHeight)
+        }
+        self.supplementAttributes.append(footAttributes)
+    }
+}

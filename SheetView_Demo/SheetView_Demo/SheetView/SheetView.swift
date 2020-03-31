@@ -14,6 +14,8 @@ class SheetView: UIView {
        public var isAutoLayout:            Bool          = false
     //item最小宽度
     public var itemMinWidth:            CGFloat       = 50
+    //代理
+    public weak var delegate:                         SheetViewDelegate?
     //item高度
        public var itemHeight: CGFloat = 50
     //头部高度

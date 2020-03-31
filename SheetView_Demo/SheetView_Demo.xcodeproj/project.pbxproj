@@ -18,6 +18,7 @@
 		C03D8374242DC8BC00C199B9 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D8371242DC8BC00C199B9 /* SheetView.swift */; };
 		C03D8375242DC8BC00C199B9 /* SheetViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D8372242DC8BC00C199B9 /* SheetViewLayout.swift */; };
 		C03D8376242DC8BC00C199B9 /* TouchEventCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D8373242DC8BC00C199B9 /* TouchEventCollectionView.swift */; };
+		C03D837A2432D8BC00C199B9 /* SheetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D83792432D8BB00C199B9 /* SheetProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		C03D8371242DC8BC00C199B9 /* SheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		C03D8372242DC8BC00C199B9 /* SheetViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetViewLayout.swift; sourceTree = "<group>"; };
 		C03D8373242DC8BC00C199B9 /* TouchEventCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchEventCollectionView.swift; sourceTree = "<group>"; };
+		C03D83792432D8BB00C199B9 /* SheetProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				C03D8371242DC8BC00C199B9 /* SheetView.swift */,
 				C03D8372242DC8BC00C199B9 /* SheetViewLayout.swift */,
 				C03D8373242DC8BC00C199B9 /* TouchEventCollectionView.swift */,
+				C03D83792432D8BB00C199B9 /* SheetProtocol.swift */,
 			);
 			path = SheetView;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				C03D8341242DC88200C199B9 /* AppDelegate.swift in Sources */,
 				C03D8374242DC8BC00C199B9 /* SheetView.swift in Sources */,
 				C03D8343242DC88200C199B9 /* SceneDelegate.swift in Sources */,
+				C03D837A2432D8BC00C199B9 /* SheetProtocol.swift in Sources */,
 				C03D8376242DC8BC00C199B9 /* TouchEventCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
